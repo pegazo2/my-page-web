@@ -308,8 +308,9 @@
   let correctAnswer = card.es.toLowerCase();
 
   if(userAnswer === "") {
-    messageDiv.textContent = "Por favor, escribe tu respuesta.";
-    messageDiv.className = "message incorrect";
+    // Aquí mostramos la traducción sin error si el input está vacío
+    messageDiv.textContent = `La traducción es: "${card.es}"`;
+    messageDiv.className = "message correct";
     return;
   }
 
@@ -327,6 +328,7 @@
     messageDiv.className = "message incorrect";
   }
 };
+
 
 
       if(userAnswer === correctAnswer) {
