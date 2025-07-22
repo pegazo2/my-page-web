@@ -304,6 +304,22 @@
       currentIndex = (currentIndex + 1) % flashcards.length;
       showFlashcard();
     };
+    document.getElementById('saveBtn').onclick = () => {
+  const card = flashcards[currentIndex];
+  // Solo guardamos si no está ya guardada
+  if (!savedCards.find(c => c.en === card.en)) {
+    savedCards.push(card);
+    saveToLocalStorage();
+    updateSavedList();
+    messageDiv.textContent = "Flashcard guardada y reproducida 🔊";
+    messageDiv.className = "message correct";
+  } else {
+    messageDiv.textContent = "Ya habías guardado esta flashcard.";
+    messageDiv.className = "message";
+  }
+  speak(card.en, 1); // Reproduce en velocidad normal
+};
+
 
     document.getElementById('playNormal').onclick = () => speak(flashcards[currentIndex].en, 1);
     document.getElementById('playSlow').onclick = () => speak(flashcards[currentIndex].en, 0.6);
