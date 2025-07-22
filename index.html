@@ -303,15 +303,31 @@
     }
 
     checkBtn.onclick = () => {
-      const card = flashcards[currentIndex];
-      let userAnswer = answerInput.value.trim().toLowerCase();
-      let correctAnswer = card.es.toLowerCase();
+  const card = flashcards[currentIndex];
+  let userAnswer = answerInput.value.trim().toLowerCase();
+  let correctAnswer = card.es.toLowerCase();
 
-      if(userAnswer === "") {
-        messageDiv.textContent = "Por favor, escribe tu respuesta.";
-        messageDiv.className = "message incorrect";
-        return;
-      }
+  if(userAnswer === "") {
+    messageDiv.textContent = "Por favor, escribe tu respuesta.";
+    messageDiv.className = "message incorrect";
+    return;
+  }
+
+  if(userAnswer === correctAnswer) {
+    messageDiv.textContent = "¡Correcto! 🎉";
+    messageDiv.className = "message correct";
+    // Guardar si no está ya guardada
+    if(!savedCards.find(c => c.en === card.en)) {
+      savedCards.push(card);
+      saveToLocalStorage();
+      updateSavedList();
+    }
+  } else {
+    messageDiv.textContent = `Incorrecto. La respuesta correcta es: "${card.es}"`;
+    messageDiv.className = "message incorrect";
+  }
+};
+
 
       if(userAnswer === correctAnswer) {
         messageDiv.textContent = "¡Correcto! 🎉";
